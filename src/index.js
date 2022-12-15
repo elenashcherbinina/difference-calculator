@@ -5,31 +5,33 @@ const readFile = (filepath) => readFileSync(filepath, 'utf8');
 
 const parseFile = (data) => JSON.parse(data);
 
-const compareAndSort = (obj1, obj2) => {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
-  const uniqKeysSorted = _.sortBy(_.union(keys1, keys2));
-  let result = '';
+const getDiff = (obj1, obj2) => {
+  const keys1 = _.keys(obj1);
+  const keys2 = _.keys(obj2);
+  const sortedKeys = _.sortBy(_.union(keys1, keys2));
 
-  for (const key of uniqKeysSorted) {
+  const diff = sortedKeys.map((key) => {
+    const value1 = obj1[key];
+    const value2 = obj2[key];
+
     if (!_.has(obj1, key)) {
-      result += ` + ${key}: ${obj2[key]}\n`;
+      return ` + ${key}: ${value2}`;
     } else if (!_.has(obj2, key)) {
-      result += ` - ${key}: ${obj2[key]}\n`;
-    } else if (obj1[key] === obj2[key]) {
-      result += `   ${key}: ${obj2[key]}\n`;
+      return ` - ${key}: ${value1}`;
+    } else if (value1 === value2) {
+      return `   ${key}: ${value2}`;
     } else {
-      result += ` - ${key}: ${obj1[key]}\n + ${key}: ${obj2[key]}\n`;
+      return ` - ${key}: ${value1}\n + ${key}: ${value2}`;
     }
-  }
-  result = `{\n${result}}`;
-  return result;
+  });
+  const result = diff.join('\n');
+  return `{\n${result}\n}`;
 };
 
 const genDiff = (filepath1, filepath2) => {
   const data1 = parseFile(readFile(filepath1));
   const data2 = parseFile(readFile(filepath2));
-  const result = compareAndSort(data1, data2);
+  const result = getDiff(data1, data2);
   return result;
 };
 

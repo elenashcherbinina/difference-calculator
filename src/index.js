@@ -16,13 +16,14 @@ const getDiff = (obj1, obj2) => {
 
     if (!_.has(obj1, key)) {
       return ` + ${key}: ${value2}`;
-    } else if (!_.has(obj2, key)) {
-      return ` - ${key}: ${value1}`;
-    } else if (value1 === value2) {
-      return `   ${key}: ${value2}`;
-    } else {
-      return ` - ${key}: ${value1}\n + ${key}: ${value2}`;
     }
+    if (!_.has(obj2, key)) {
+      return ` - ${key}: ${value1}`;
+    }
+    if (value1 === value2) {
+      return `   ${key}: ${value2}`;
+    }
+    return ` - ${key}: ${value1}\n + ${key}: ${value2}`;
   });
   const result = diff.join('\n');
   return `{\n${result}\n}`;

@@ -5,6 +5,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/83a85c1fbd15ca143ee0/maintainability)](https://codeclimate.com/github/elenashcherbinina/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/83a85c1fbd15ca143ee0/test_coverage)](https://codeclimate.com/github/elenashcherbinina/frontend-project-46/test_coverage)
 
-### Project Demo:
+### Project Demos:
 
+**Getting diff for json-files**
 [![asciicast](https://asciinema.org/a/o1412RIu6ckAfIxS7s75goXIn.svg)](https://asciinema.org/a/o1412RIu6ckAfIxS7s75goXIn)
+
+**Getting diff for yaml-files**
+[![asciicast](https://asciinema.org/a/xnGlkJIA2DX84TVbcxUo0oGA1.svg)](https://asciinema.org/a/xnGlkJIA2DX84TVbcxUo0oGA1)

@@ -16,7 +16,7 @@ const stringify = (value, depth = 1) => {
   return ['{', ...lines, `${bracketIndent}}`].join('\n');
 };
 
-const getTree = (node, depth = 1) => {
+const makeStylish = (node, depth = 1) => {
   const currentIndent = getIndent(depth);
   const bracketIndent = currentIndent.slice(2);
 
@@ -40,7 +40,7 @@ const getTree = (node, depth = 1) => {
         ].join('\n');
       }
       case 'nested': {
-        return `${currentIndent}  ${key}: ${getTree(children, depth + 1)}`;
+        return `${currentIndent}  ${key}: ${makeStylish(children, depth + 1)}`;
       }
       default:
         throw new Error(`Type ${type} is not defined`);
@@ -49,6 +49,6 @@ const getTree = (node, depth = 1) => {
   return ['{', ...result, `${bracketIndent}}`].join('\n');
 };
 
-const stylish = (tree) => getTree(tree, 1);
+const stylish = (tree) => makeStylish(tree, 1);
 
 export default stylish;

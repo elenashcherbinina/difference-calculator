@@ -1,11 +1,15 @@
 import _ from 'lodash';
 
-const buildAST = (obj1, obj2) => {
+const getSortedKeys = (obj1, obj2) => {
   const keys1 = _.keys(obj1);
   const keys2 = _.keys(obj2);
-  const sortedKeys = _.sortBy(_.union(keys1, keys2));
+  return _.sortBy(_.union(keys1, keys2));
+};
 
-  const result = sortedKeys.map((key) => {
+const buildAST = (obj1, obj2) => {
+  const keys = getSortedKeys(obj1, obj2);
+
+  const result = keys.map((key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 

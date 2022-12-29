@@ -10,5 +10,11 @@
 **Getting diff for json-files**
 [![asciicast](https://asciinema.org/a/o1412RIu6ckAfIxS7s75goXIn.svg)](https://asciinema.org/a/o1412RIu6ckAfIxS7s75goXIn)
 
+**Getting diff for json-files in stylish format**
+[![asciicast](https://asciinema.org/a/5lyQZAMFb5gaPmLygQWLug5yW.svg)](https://asciinema.org/a/5lyQZAMFb5gaPmLygQWLug5yW)
+
 **Getting diff for yaml-files**
 [![asciicast](https://asciinema.org/a/xnGlkJIA2DX84TVbcxUo0oGA1.svg)](https://asciinema.org/a/xnGlkJIA2DX84TVbcxUo0oGA1)
+
+**Getting diff for yaml-files in stylish format**
+[![asciicast](https://asciinema.org/a/NJ1d2EuBOg5U33SHrOfRzzcyv.svg)](https://asciinema.org/a/NJ1d2EuBOg5U33SHrOfRzzcyv)

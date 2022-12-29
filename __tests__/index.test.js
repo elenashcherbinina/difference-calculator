@@ -13,10 +13,10 @@ test.each([
   ['file1.json', 'file2.json', 'result-stylish.txt'],
   ['file1.yaml', 'file2.yaml', 'result-stylish.txt'],
   ['file1.yml', 'file2.yml', 'result-stylish.txt'],
-  ['file3.json', 'file4.json', 'result-4-5.txt'],
-  ['file3.yaml', 'file4.yaml', 'result-4-5.txt'],
-  ['file3.yml', 'file4.yml', 'result-4-5.txt'],
-])('check diff', (file1, file2, resultFile) => {
+  ['file1.json', 'file2.json', 'result-plain.txt'],
+  ['file1.yaml', 'file2.yaml', 'result-plain.txt'],
+  ['file1.yml', 'file2.yml', 'result-plain.txt'],
+])('check stylish and plain format', (file1, file2, resultFile) => {
   const expectedResult = genDiff(getFixturePath(file1), getFixturePath(file2));
   const result = getData(resultFile);
   expect(expectedResult).toBe(result);

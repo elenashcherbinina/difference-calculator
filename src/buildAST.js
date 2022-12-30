@@ -9,7 +9,7 @@ const getSortedKeys = (obj1, obj2) => {
 const buildAST = (obj1, obj2) => {
   const keys = getSortedKeys(obj1, obj2);
 
-  const result = keys.map((key) => {
+  const data = keys.map((key) => {
     const value1 = obj1[key];
     const value2 = obj2[key];
 
@@ -28,7 +28,7 @@ const buildAST = (obj1, obj2) => {
     return { key, type: 'changed', valueFrom: value1, valueTo: value2 };
   });
 
-  return result;
+  return data;
 };
 
 export default buildAST;

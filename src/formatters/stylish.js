@@ -6,49 +6,47 @@ const spacesCount = 4;
 
 const getIndent = (depth = 1) => replacer.repeat(depth * spacesCount - standartSpacesCount);
 
-const stringify = (value, depth = 1) => {
+const getValue = (node, depth = 1) => {
   const currentIndent = getIndent(depth + 1);
   const bracketIndent = currentIndent.slice(2);
 
-  if (!_.isObject(value)) return value;
+  if (!_.isObject(node)) return node;
 
-  const lines = Object.entries(value).map(([key, val]) => `${currentIndent}  ${key}: ${stringify(val, depth + 1)}`);
+  const lines = Object.entries(node).map(([key, val]) => `${currentIndent}  ${key}: ${getValue(val, depth + 1)}`);
   return ['{', ...lines, `${bracketIndent}}`].join('\n');
 };
 
-const makeStylish = (node, depth = 1) => {
+const stylishTree = (data, depth = 1) => {
   const currentIndent = getIndent(depth);
   const bracketIndent = currentIndent.slice(2);
 
-  const result = node.map(({ key, type, value, children, valueFrom, valueTo }) => {
-    const data = `${key}: ${stringify(value, depth)}`;
-
+  const lines = data.map(({ key, type, value, children, valueFrom, valueTo }) => {
     switch (type) {
       case 'added': {
-        return `${currentIndent}+ ${data}`;
+        return `${currentIndent}+ ${key}: ${getValue(value, depth)}`;
       }
       case 'deleted': {
-        return `${currentIndent}- ${data}`;
+        return `${currentIndent}- ${key}: ${getValue(value, depth)}`;
       }
       case 'unchanged': {
-        return `${currentIndent}  ${data}`;
+        return `${currentIndent}  ${key}: ${getValue(value, depth)}`;
       }
       case 'changed': {
         return [
-          `${currentIndent}- ${key}: ${stringify(valueFrom, depth)}`,
-          `${currentIndent}+ ${key}: ${stringify(valueTo, depth)}`,
+          `${currentIndent}- ${key}: ${getValue(valueFrom, depth)}`,
+          `${currentIndent}+ ${key}: ${getValue(valueTo, depth)}`,
         ].join('\n');
       }
       case 'nested': {
-        return `${currentIndent}  ${key}: ${makeStylish(children, depth + 1)}`;
+        return `${currentIndent}  ${key}: ${stylishTree(children, depth + 1)}`;
       }
       default:
         throw new Error(`Type ${type} is not defined`);
     }
   });
-  return ['{', ...result, `${bracketIndent}}`].join('\n');
+  return ['{', ...lines, `${bracketIndent}}`].join('\n');
 };
 
-const stylish = (tree) => makeStylish(tree, 1);
+const stylish = (tree) => stylishTree(tree);
 
 export default stylish;

@@ -7,6 +7,8 @@ export default (data, formatName) => {
       return stylish(data);
     case 'plain':
       return plain(data);
+    case 'json':
+      return JSON.stringify(data);
     default:
       throw new Error(`${formatName} is not supported`);
   }

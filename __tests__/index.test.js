@@ -16,6 +16,9 @@ test.each([
   ['file1.json', 'file2.json', 'plain', 'result-plain.txt'],
   ['file1.yaml', 'file2.yaml', 'plain', 'result-plain.txt'],
   ['file1.yml', 'file2.yml', 'plain', 'result-plain.txt'],
+  ['file1.json', 'file2.json', 'json', 'result-json.txt'],
+  ['file1.yaml', 'file2.yaml', 'json', 'result-json.txt'],
+  ['file1.yml', 'file2.yml', 'json', 'result-json.txt'],
 ])('check diff', (file1, file2, formatName, resultFile) => {
   const expectedResult = genDiff(getFixturePath(file1), getFixturePath(file2), formatName);
   const result = getData(resultFile);

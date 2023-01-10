@@ -7,20 +7,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const getData = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
+const getFixtureData = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
 
-test.each([
-  ['file1.json', 'file2.json', 'stylish', 'result-stylish.txt'],
-  ['file1.yaml', 'file2.yaml', 'stylish', 'result-stylish.txt'],
-  ['file1.yml', 'file2.yml', 'stylish', 'result-stylish.txt'],
-  ['file1.json', 'file2.json', 'plain', 'result-plain.txt'],
-  ['file1.yaml', 'file2.yaml', 'plain', 'result-plain.txt'],
-  ['file1.yml', 'file2.yml', 'plain', 'result-plain.txt'],
-  ['file1.json', 'file2.json', 'json', 'result-json.txt'],
-  ['file1.yaml', 'file2.yaml', 'json', 'result-json.txt'],
-  ['file1.yml', 'file2.yml', 'json', 'result-json.txt'],
-])('check diff', (file1, file2, formatName, resultFile) => {
-  const expectedResult = genDiff(getFixturePath(file1), getFixturePath(file2), formatName);
-  const result = getData(resultFile);
-  expect(expectedResult).toBe(result);
+describe('gendiff', () => {
+  test.each(['json', 'yml', 'yaml'])('check %s', (extension) => {
+    const filepath1 = getFixturePath(`file1.${extension}`);
+    const filepath2 = getFixturePath(`file2.${extension}`);
+
+    const resultStylish = getFixtureData('result-stylish.txt');
+    const resultPlain = getFixtureData('result-plain.txt');
+    const resultJson = getFixtureData('result-json.txt');
+
+    expect(genDiff(filepath1, filepath2)).toBe(resultStylish);
+    expect(genDiff(filepath1, filepath2, 'stylish')).toBe(resultStylish);
+    expect(genDiff(filepath1, filepath2, 'plain')).toBe(resultPlain);
+    expect(genDiff(filepath1, filepath2, 'json')).toBe(resultJson);
+  });
 });

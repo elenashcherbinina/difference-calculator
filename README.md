@@ -40,11 +40,11 @@ gendiff [options] <filepath1> <filepath2>
 
 ## Project Demos:
 
-**1. Getting diff for `json`-files**
+**1. Getting diff for `json` files**
 
 [![asciicast](https://asciinema.org/a/o1412RIu6ckAfIxS7s75goXIn.svg)](https://asciinema.org/a/o1412RIu6ckAfIxS7s75goXIn)
 
-**2. Getting diff for `yaml`-files**
+**2. Getting diff for `yaml` files**
 
 [![asciicast](https://asciinema.org/a/xnGlkJIA2DX84TVbcxUo0oGA1.svg)](https://asciinema.org/a/xnGlkJIA2DX84TVbcxUo0oGA1)
 

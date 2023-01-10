@@ -7,7 +7,7 @@
 
 ## Project description:
 
-The compare utility finds and shows the difference between two json or yaml-files.
+The utility сompares two configuration files and shows a difference.
 
 Formatters:
 

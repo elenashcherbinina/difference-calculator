@@ -20,28 +20,28 @@ const stylishTree = (data, depth = 1) => {
   const currentIndent = getIndent(depth);
   const bracketIndent = currentIndent.slice(2);
 
-  const lines = data.map(({ key, type, value, children, valueFrom, valueTo }) => {
-    switch (type) {
+  const lines = data.map((node) => {
+    switch (node.type) {
       case 'added': {
-        return `${currentIndent}+ ${key}: ${getValue(value, depth)}`;
+        return `${currentIndent}+ ${node.key}: ${getValue(node.value, depth)}`;
       }
       case 'deleted': {
-        return `${currentIndent}- ${key}: ${getValue(value, depth)}`;
+        return `${currentIndent}- ${node.key}: ${getValue(node.value, depth)}`;
       }
       case 'unchanged': {
-        return `${currentIndent}  ${key}: ${getValue(value, depth)}`;
+        return `${currentIndent}  ${node.key}: ${getValue(node.value, depth)}`;
       }
       case 'changed': {
         return [
-          `${currentIndent}- ${key}: ${getValue(valueFrom, depth)}`,
-          `${currentIndent}+ ${key}: ${getValue(valueTo, depth)}`,
+          `${currentIndent}- ${node.key}: ${getValue(node.valueFrom, depth)}`,
+          `${currentIndent}+ ${node.key}: ${getValue(node.valueTo, depth)}`,
         ].join('\n');
       }
       case 'nested': {
-        return `${currentIndent}  ${key}: ${stylishTree(children, depth + 1)}`;
+        return `${currentIndent}  ${node.key}: ${stylishTree(node.children, depth + 1)}`;
       }
       default:
-        throw new Error(`Type ${type} is not defined`);
+        throw new Error(`Type ${node.type} is not defined`);
     }
   });
   return ['{', ...lines, `${bracketIndent}}`].join('\n');

@@ -25,7 +25,12 @@ const buildAST = (obj1, obj2) => {
     if (value1 === value2) {
       return { key, type: 'unchanged', value: value2 };
     }
-    return { key, type: 'changed', valueFrom: value1, valueTo: value2 };
+    return {
+      key,
+      type: 'changed',
+      valueFrom: value1,
+      valueTo: value2,
+    };
   });
 
   return data;

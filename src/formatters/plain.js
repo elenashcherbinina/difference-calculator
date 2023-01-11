@@ -8,22 +8,24 @@ const getValue = (value) => {
 const plainTree = (data, path = '') => {
   const lines = data
     .filter((node) => node.type !== 'unchanged')
-    .map(({ key, type, value, children, valueFrom, valueTo }) => {
-      switch (type) {
+    .map((node) => {
+      switch (node.type) {
         case 'added': {
-          return `Property '${path}${key}' was added with value: ${getValue(value)}`;
+          return `Property '${path}${node.key}' was added with value: ${getValue(node.value)}`;
         }
         case 'deleted': {
-          return `Property '${path}${key}' was removed`;
+          return `Property '${path}${node.key}' was removed`;
         }
         case 'changed': {
-          return `Property '${path}${key}' was updated. From ${getValue(valueFrom)} to ${getValue(valueTo)}`;
+          return `Property '${path}${node.key}' was updated. From ${getValue(node.valueFrom)} to ${getValue(
+            node.valueTo,
+          )}`;
         }
         case 'nested': {
-          return plainTree(children, `${path}${key}.`);
+          return plainTree(node.children, `${path}${node.key}.`);
         }
         default:
-          throw new Error(`Type ${type} is not defined`);
+          throw new Error(`Type ${node.type} is not defined`);
       }
     });
   return lines.join('\n');

@@ -23,7 +23,16 @@ node.js 16.0+
 
 ```
 git clone git@github.com:elenashcherbinina/frontend-project-46.git
-npm ci or make install
+```
+
+```
+npm ci
+```
+
+or
+
+```
+make install
 ```
 
 ## Usage:

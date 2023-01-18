@@ -17,6 +17,6 @@ export default (filepath1, filepath2, formatName = 'stylish') => {
   const data1 = readFile(filepath1);
   const data2 = readFile(filepath2);
 
-  const data = buildAST(data1, data2);
-  return format(data, formatName);
+  const diff = buildAST(data1, data2);
+  return format(diff, formatName);
 };

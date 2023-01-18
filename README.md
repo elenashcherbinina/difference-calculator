@@ -29,12 +29,6 @@ git clone git@github.com:elenashcherbinina/frontend-project-46.git
 npm ci
 ```
 
-or
-
-```
-make install
-```
-
 ## Usage:
 
 ```

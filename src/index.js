@@ -1,19 +1,21 @@
+/** @format */
+
 import { readFileSync } from 'node:fs';
 import path from 'path';
-import getParsedData from './parsers.js';
+import parse from './parsers.js';
 import buildAST from './buildAST.js';
 import format from './formatters/index.js';
 
-const getFullPath = (filepath) => path.resolve(process.cwd(), filepath);
-const getData = (filepath) => readFileSync(getFullPath(filepath), 'utf8');
-const getFormat = (filepath) => path.extname(filepath).slice(1);
+const readFile = (filepath) => {
+  const buildFullPath = path.resolve(process.cwd(), filepath);
+  const getData = readFileSync(buildFullPath, 'utf8');
+  const extractFormat = path.extname(filepath).slice(1);
+  return parse(getData, extractFormat);
+};
 
 export default (filepath1, filepath2, formatName = 'stylish') => {
-  const format1 = getFormat(filepath1);
-  const format2 = getFormat(filepath2);
-
-  const data1 = getParsedData(getData(filepath1), format1);
-  const data2 = getParsedData(getData(filepath2), format2);
+  const data1 = readFile(filepath1);
+  const data2 = readFile(filepath2);
 
   const data = buildAST(data1, data2);
   return format(data, formatName);

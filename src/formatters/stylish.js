@@ -38,7 +38,7 @@ const buildTree = (data, depth = 1) => {
         ].join('\n');
       }
       case 'nested': {
-        return `${currentIndent}  ${node.key}: ${stylishTree(node.children, depth + 1)}`;
+        return `${currentIndent}  ${node.key}: ${buildTree(node.children, depth + 1)}`;
       }
       default:
         throw new Error(`Type ${node.type} is not defined`);

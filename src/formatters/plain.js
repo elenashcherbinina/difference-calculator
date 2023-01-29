@@ -21,7 +21,7 @@ const buildTree = (data, path = '') => {
             node.value2)}`;
         }
         case 'nested': {
-          return plainTree(node.children, `${path}${node.key}.`);
+          return buildTree(node.children, `${path}${node.key}.`);
         }
         default:
           throw new Error(`Type ${node.type} is not defined`);

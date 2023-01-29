@@ -5,7 +5,7 @@ const stringify = (value) => {
   return _.isString(value) ? `'${value}'` : value;
 };
 
-const plainTree = (data, path = '') => {
+const buildTree = (data, path = '') => {
   const lines = data
     .filter((node) => node.type !== 'unchanged')
     .map((node) => {
@@ -30,6 +30,6 @@ const plainTree = (data, path = '') => {
   return lines.join('\n');
 };
 
-const plain = (tree) => plainTree(tree);
+const makePlain = (tree) => buildTree(tree);
 
-export default plain;
+export default makePlain;

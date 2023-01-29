@@ -16,7 +16,7 @@ const stringify = (data, depth) => {
   return `{\n${lines.join('\n')}\n${bracketIndent}}`;
 };
 
-const stylishTree = (data, depth = 1) => {
+const buildTree = (data, depth = 1) => {
   const currentIndent = indent(depth);
   const bracketIndent = currentIndent.slice(2);
 
@@ -47,6 +47,6 @@ const stylishTree = (data, depth = 1) => {
   return `{\n${lines.join('\n')}\n${bracketIndent}}`;
 };
 
-const stylish = (tree) => stylishTree(tree);
+const makeStylish = (tree) => buildTree(tree);
 
-export default stylish;
+export default makeStylish;

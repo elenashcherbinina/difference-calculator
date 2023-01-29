@@ -1,40 +1,40 @@
 import _ from 'lodash';
 
 const replacer = ' ';
-const standartSpacesCount = 2;
+const signSpace = 2;
 const spacesCount = 4;
 
-const getIndent = (depth = 1) => replacer.repeat(depth * spacesCount - standartSpacesCount);
+const indent = (depth) => replacer.repeat(depth * spacesCount - signSpace);
 
-const getValue = (node, depth = 1) => {
-  const currentIndent = getIndent(depth + 1);
+const stringify = (data, depth) => {
+  const currentIndent = indent(depth + 1);
   const bracketIndent = currentIndent.slice(2);
 
-  if (!_.isObject(node)) return node;
+  if (!_.isObject(data)) return String(data);
 
-  const lines = Object.entries(node).map(([key, val]) => `${currentIndent}  ${key}: ${getValue(val, depth + 1)}`);
-  return ['{', ...lines, `${bracketIndent}}`].join('\n');
+  const lines = Object.entries(data).map(([key, value]) => `${currentIndent}  ${key}: ${stringify(value, depth + 1)}`);
+  return `{\n${lines.join('\n')}\n${bracketIndent}}`;
 };
 
 const stylishTree = (data, depth = 1) => {
-  const currentIndent = getIndent(depth);
+  const currentIndent = indent(depth);
   const bracketIndent = currentIndent.slice(2);
 
   const lines = data.map((node) => {
     switch (node.type) {
       case 'added': {
-        return `${currentIndent}+ ${node.key}: ${getValue(node.value, depth)}`;
+        return `${currentIndent}+ ${node.key}: ${stringify(node.value, depth)}`;
       }
       case 'deleted': {
-        return `${currentIndent}- ${node.key}: ${getValue(node.value, depth)}`;
+        return `${currentIndent}- ${node.key}: ${stringify(node.value, depth)}`;
       }
       case 'unchanged': {
-        return `${currentIndent}  ${node.key}: ${getValue(node.value, depth)}`;
+        return `${currentIndent}  ${node.key}: ${stringify(node.value, depth)}`;
       }
       case 'changed': {
         return [
-          `${currentIndent}- ${node.key}: ${getValue(node.valueFrom, depth)}`,
-          `${currentIndent}+ ${node.key}: ${getValue(node.valueTo, depth)}`,
+          `${currentIndent}- ${node.key}: ${stringify(node.value1, depth)}`,
+          `${currentIndent}+ ${node.key}: ${stringify(node.value2, depth)}`,
         ].join('\n');
       }
       case 'nested': {
@@ -44,7 +44,7 @@ const stylishTree = (data, depth = 1) => {
         throw new Error(`Type ${node.type} is not defined`);
     }
   });
-  return ['{', ...lines, `${bracketIndent}}`].join('\n');
+  return `{\n${lines.join('\n')}\n${bracketIndent}}`;
 };
 
 const stylish = (tree) => stylishTree(tree);

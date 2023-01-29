@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getValue = (value) => {
+const stringify = (value) => {
   if (_.isObject(value)) return '[complex value]';
   return _.isString(value) ? `'${value}'` : value;
 };
@@ -11,15 +11,14 @@ const plainTree = (data, path = '') => {
     .map((node) => {
       switch (node.type) {
         case 'added': {
-          return `Property '${path}${node.key}' was added with value: ${getValue(node.value)}`;
+          return `Property '${path}${node.key}' was added with value: ${stringify(node.value)}`;
         }
         case 'deleted': {
           return `Property '${path}${node.key}' was removed`;
         }
         case 'changed': {
-          return `Property '${path}${node.key}' was updated. From ${getValue(node.valueFrom)} to ${getValue(
-            node.valueTo,
-          )}`;
+          return `Property '${path}${node.key}' was updated. From ${stringify(node.value1)} to ${stringify(
+            node.value2)}`;
         }
         case 'nested': {
           return plainTree(node.children, `${path}${node.key}.`);

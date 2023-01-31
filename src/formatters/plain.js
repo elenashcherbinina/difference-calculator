@@ -18,7 +18,8 @@ const buildTree = (data, path = '') => {
         }
         case 'changed': {
           return `Property '${path}${node.key}' was updated. From ${stringify(node.value1)} to ${stringify(
-            node.value2)}`;
+            node.value2,
+          )}`;
         }
         case 'nested': {
           return buildTree(node.children, `${path}${node.key}.`);

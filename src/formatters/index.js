@@ -1,12 +1,12 @@
-import formatStylish from './stylish.js';
-import formatPlain from './plain.js';
+import formatToStylish from './stylish.js';
+import formatToPlain from './plain.js';
 
 export default (data, formatName) => {
   switch (formatName) {
     case 'stylish':
-      return formatStylish(data);
+      return formatToStylish(data);
     case 'plain':
-      return formatPlain(data);
+      return formatToPlain(data);
     case 'json':
       return JSON.stringify(data);
     default:

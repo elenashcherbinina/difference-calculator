@@ -6,7 +6,7 @@ const stringify = (value) => {
   return String(value);
 };
 
-const getTree = (tree, path = '') => tree
+const formatTree = (tree, path = '') => tree
   .filter(({ type }) => type !== 'unchanged')
   .map((node) => {
     switch (node.type) {
@@ -22,7 +22,7 @@ const getTree = (tree, path = '') => tree
         )}`;
       }
       case 'nested': {
-        return getTree(node.children, `${path}${node.key}.`);
+        return formatTree(node.children, `${path}${node.key}.`);
       }
       default:
         throw new Error(`Type ${node.type} is not defined`);
@@ -30,6 +30,6 @@ const getTree = (tree, path = '') => tree
   })
   .join('\n');
 
-const formatPlain = (tree) => getTree(tree);
+const formatToPlain = (tree) => formatTree(tree);
 
-export default formatPlain;
+export default formatToPlain;

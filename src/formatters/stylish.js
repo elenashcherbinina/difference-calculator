@@ -18,7 +18,7 @@ const stringify = (data, depth) => {
   return `{\n${lines.join('\n')}\n${indent(depth)}}`;
 };
 
-const getTree = (tree, depth = 1) => tree
+const formatTree = (tree, depth = 1) => tree
   .map((node) => {
     switch (node.type) {
       case 'added': {
@@ -37,7 +37,7 @@ const getTree = (tree, depth = 1) => tree
         ].join('\n');
       }
       case 'nested': {
-        const children = getTree(node.children, depth + 1).join('\n');
+        const children = formatTree(node.children, depth + 1).join('\n');
         return `${indent(depth)}${node.key}: {\n${children}\n${indent(depth)}}`;
       }
       default:
@@ -45,6 +45,6 @@ const getTree = (tree, depth = 1) => tree
     }
   });
 
-const formatStylish = (tree) => `{\n${getTree(tree).join('\n')}\n}`;
+const formatToStylish = (tree) => `{\n${formatTree(tree).join('\n')}\n}`;
 
-export default formatStylish;
+export default formatToStylish;
